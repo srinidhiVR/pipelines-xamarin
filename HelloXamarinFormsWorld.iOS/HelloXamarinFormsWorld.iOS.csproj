@@ -88,12 +88,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HelloXamarinFormsWorld\HelloXamarinFormsWorld.csproj">
-      <Name>HelloXamarinFormsWorld</Name>
-      <Project>{8F4B43AC-9BB1-4723-8B7C-A8FE4BBDF32F}</Project>
-    </ProjectReference>
   </ItemGroup>
-  <ItemGroup></ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Xml" />

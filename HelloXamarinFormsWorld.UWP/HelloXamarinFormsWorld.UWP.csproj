@@ -128,12 +128,6 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\HelloXamarinFormsWorld\HelloXamarinFormsWorld.csproj">
-      <Project>{8f4b43ac-9bb1-4723-8b7c-a8fe4bbdf32f}</Project>
-      <Name>HelloXamarinFormsWorld</Name>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
