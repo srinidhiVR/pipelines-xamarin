@@ -60,7 +60,7 @@ jobs:
       buildForSimulator: true
       packageApp: false
 
- job: UWP
+- job: UWP
   pool:
     vmImage: 'VS2017-Win2016'
 
