@@ -45,12 +45,12 @@ jobs:
    - task: XamarinAndroid@1
      inputs:
        projectFile: src/HelloXamarinWorld/HelloXamarinWorld.Android/HelloXamarinWorld.Android.csproj
-       outputDirectory: '$(build.binariesdirectory)/$(BuildConfiguration)'
-       configuration: '$(BuildConfiguration)'
+       outputDirectory: '$(outputDirectory)'
+       configuration: '$(buildConfiguration)'
 
    - task: AndroidSigning@3
      inputs:
-       apkFiles: '$(Parameters.appFiles)'
+       apkFiles: '$(outputDirectory)/*.apk'
        apksign: false
        zipalign: false
 
