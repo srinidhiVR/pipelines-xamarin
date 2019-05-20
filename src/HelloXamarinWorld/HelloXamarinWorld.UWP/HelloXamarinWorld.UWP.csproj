@@ -19,7 +19,7 @@
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
     <PackageCertificateKeyFile>HelloXamarinWorld.UWP_TemporaryKey.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>74CF1F6543DE946F16D4E0BF3BAB4CF4BB9A67BA</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>CCCFC4EBE25A7EB4BD7BD798FF275AD1D74919C0</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
