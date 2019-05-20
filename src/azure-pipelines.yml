@@ -44,7 +44,7 @@ jobs:
 
    - task: XamarinAndroid@1
      inputs:
-       projectFile: src/HelloXamarinWorld/HelloXamarinWorld.Android/HelloXamarinWorld.Android.csproj
+       projectFile: src/HelloXamarinWorld.sln
        outputDirectory: '$(outputDirectory)'
        configuration: '$(buildConfiguration)'
 
