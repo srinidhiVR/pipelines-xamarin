@@ -4,38 +4,6 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/xamarin
 
 jobs:
-
-- job: Android
-  pool:
-    vmImage: 'VS2017-Win2016'
-
-  variables:
-    buildConfiguration: 'Release'
-    outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
-
-  steps:
-  - task: NuGetToolInstaller@0
-
-  - task: NuGetCommand@2
-    inputs:
-      restoreSolution: 'src/*.sln'
-
-  - task: XamarinAndroid@1
-    inputs:
-      ProjectFile: 'src/*.sln'
-      outputDirectory: '$(outputDirectory)'
-      configuration: '$(buildConfiguration)'
-
-  - task: AndroidSigning@3
-    inputs:
-      apksign: false
-      zipalign: false
-      apkFiles: '$(outputDirectory)/*.apk'
-
-  - task: PublishBuildArtifacts@1
-    inputs:
-      pathtoPublish: '$(outputDirectory)'
-
 - job: iOS
   pool:
     vmImage: 'macOS 10.13'
@@ -59,3 +27,72 @@ jobs:
       configuration: 'Release'
       buildForSimulator: true
       packageApp: false
+
+- job: Android_new
+  pool:
+    vmImage: 'VS2017-Win2016'
+
+  variables:
+    buildConfiguration: 'Release'
+    outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
+
+  steps:
+  - task: NuGetToolInstaller@0
+    inputs:
+     versionSpec: 4.4.1
+
+  - task: NuGetCommand@2
+    inputs:
+     restoreSolution: 'src/*.sln'
+
+  - task: XamarinAndroid@1
+    inputs:
+      projectFile: src/HelloXamarinWorld/HelloXamarinWorld.Android/HelloXamarinWorld.Android.csproj
+      outputDirectory: '$(build.binariesdirectory)/$(BuildConfiguration)'
+      configuration: '$(BuildConfiguration)'
+
+  - task: AndroidSigning@3
+    inputs:
+     apkFiles: '$(outputDirectory)/*.apk'
+     apksign: false
+     zipalign: false
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(build.binariesdirectory)/$(BuildConfiguration)'
+
+- job: UWP
+  pool:
+    vmImage: 'VS2017-Win2016'
+
+  variables:
+    buildConfiguration: 'Release'
+
+  steps:
+  - task: NuGetToolInstaller@0
+    inputs:
+      versionSpec: 4.4.1
+
+  - task: NuGetCommand@2
+    inputs:
+      restoreSolution: src/HelloXamarinWorld.sln
+
+  - task: VSBuild@1
+    inputs:
+      solution: 'src/HelloXamarinWorld/HelloXamarinWorld.UWP/HelloXamarinWorld.UWP.csproj'
+      vsVersion: '15.0'
+      msbuildArgs: '/p:AppxBundlePlatforms="$(BuildPlatform)" /p:AppxPackageDir="$(Build.ArtifactStagingDirectory)\AppxPackages\\" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload'
+      platform: 'x64'
+      configuration: '$(BuildConfiguration)'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/AppxPackages'
+
+  - task: DownloadSecureFile@1
+    displayName: 'Download secure file'
+    inputs:
+      secureFile: '954e8e48-650b-4db6-809c-169feb638179'
+
+
+
