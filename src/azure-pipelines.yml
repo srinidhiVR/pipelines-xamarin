@@ -83,6 +83,7 @@ jobs:
       msbuildArgs: '/p:AppxBundlePlatforms="$(BuildPlatform)" /p:AppxPackageDir="$(Build.ArtifactStagingDirectory)\AppxPackages\\" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload'
       platform: 'x64'
       configuration: '$(BuildConfiguration)'
+      clean: true
 
   - task: PublishBuildArtifacts@1
     inputs:
@@ -92,6 +93,4 @@ jobs:
     displayName: 'Download secure file'
     inputs:
       secureFile: '954e8e48-650b-4db6-809c-169feb638179'
-
-
 
