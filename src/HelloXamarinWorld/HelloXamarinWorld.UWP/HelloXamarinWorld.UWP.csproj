@@ -8,6 +8,7 @@
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RuntimeIdentifiers>win10</RuntimeIdentifiers>
+    <RuntimeIdentifiers>win10-x64-aot</RuntimeIdentifiers>
     <RootNamespace>HelloXamarinWorld.UWP</RootNamespace>
     <AssemblyName>HelloXamarinWorld.UWP</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>

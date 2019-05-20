@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.645
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloXamarinWorld", "HelloXamarinWorld\HelloXamarinWorld\HelloXamarinWorld.csproj", "{414B629E-414A-4D07-9E58-A0EEA6AB709A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloXamarinWorld", "HelloXamarinWorld\HelloXamarinWorld\HelloXamarinWorld.csproj", "{414B629E-414A-4D07-9E58-A0EEA6AB709A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloXamarinWorld.Android", "HelloXamarinWorld\HelloXamarinWorld.Android\HelloXamarinWorld.Android.csproj", "{3A95B32C-B203-4FDB-A795-6053112D4BAE}"
 EndProject
@@ -154,7 +154,6 @@ Global
 		{3A95B32C-B203-4FDB-A795-6053112D4BAE}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{3A95B32C-B203-4FDB-A795-6053112D4BAE}.Release|iPhoneSimulator.Deploy.0 = Release|Any CPU
 		{3A95B32C-B203-4FDB-A795-6053112D4BAE}.Release|x64.ActiveCfg = Release|Any CPU
-		{3A95B32C-B203-4FDB-A795-6053112D4BAE}.Release|x64.Build.0 = Release|Any CPU
 		{3A95B32C-B203-4FDB-A795-6053112D4BAE}.Release|x64.Deploy.0 = Release|Any CPU
 		{3A95B32C-B203-4FDB-A795-6053112D4BAE}.Release|x86.ActiveCfg = Release|Any CPU
 		{3A95B32C-B203-4FDB-A795-6053112D4BAE}.Release|x86.Build.0 = Release|Any CPU
