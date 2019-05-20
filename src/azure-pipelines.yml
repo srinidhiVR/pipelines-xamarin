@@ -36,27 +36,25 @@ jobs:
     buildConfiguration: 'Release'
     outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
 
-    steps:
-    - task: NuGetToolInstaller@0
+  steps:
+   - task: NuGetToolInstaller@0
+   - task: NuGetCommand@2
+     inputs:
+       restoreSolution: 'src/HelloXamarinWorld/HelloXamarinWorld.sln'
 
-    - task: NuGetCommand@2
-      inputs:
-        restoreSolution: 'src/HelloXamarinWorld/HelloXamarinWorld.sln'
+   - task: XamarinAndroid@1
+     inputs:
+       projectFile: src/HelloXamarinWorld/HelloXamarinWorld.Android/HelloXamarinWorld.Android.csproj
+       outputDirectory: '$(build.binariesdirectory)/$(BuildConfiguration)'
+       configuration: '$(BuildConfiguration)'
 
-    - task: XamarinAndroid@1
-      inputs:
-        projectFile: src/HelloXamarinWorld/HelloXamarinWorld.Android/HelloXamarinWorld.Android.csproj
-        outputDirectory: '$(build.binariesdirectory)/$(BuildConfiguration)'
-        configuration: '$(BuildConfiguration)'
+   - task: AndroidSigning@3
+     inputs:
+       apkFiles: '$(Parameters.appFiles)'
+       apksign: false
+       zipalign: false
 
-    - task: AndroidSigning@3
-      inputs:
-        apkFiles: '$(Parameters.appFiles)'
-        apksign: false
-        zipalign: false
-
-    - task: PublishBuildArtifacts@1
-      inputs:
-        PathtoPublish: '$(build.binariesdirectory)/$(BuildConfiguration)'
-      condition: succeededOrFailed()
-    
+   - task: PublishBuildArtifacts@1
+     inputs:
+       PathtoPublish: '$(build.binariesdirectory)/$(BuildConfiguration)'
+     condition: succeededOrFailed()    
