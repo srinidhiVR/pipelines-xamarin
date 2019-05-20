@@ -1,0 +1,130 @@
+# Xamarin.Android and Xamarin.iOS
+# Build a Xamarin.Android and Xamarin.iOS app.
+# Add steps that test, sign, and distribute the app, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/xamarin
+
+jobs:
+
+# - job: Android
+  # pool:
+    # vmImage: 'VS2017-Win2016'
+
+  # variables:
+    # buildConfiguration: 'Release'
+    # outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
+
+  # steps:
+  # - task: NuGetToolInstaller@0
+
+  # - task: NuGetCommand@2
+    # inputs:
+      # restoreSolution: '**/*.sln'
+
+  # - task: XamarinAndroid@1
+    # inputs:
+      # projectFile: '**/*droid*.csproj'
+      # outputDirectory: '$(outputDirectory)'
+      # configuration: '$(buildConfiguration)'
+
+  # - task: AndroidSigning@3
+    # inputs:
+      # apksign: false
+      # zipalign: false
+      # apkFiles: '$(outputDirectory)/*.apk'
+
+  # - task: PublishBuildArtifacts@1
+    # inputs:
+      # pathtoPublish: '$(outputDirectory)'
+
+- job: iOS
+  pool:
+    vmImage: 'macOS 10.13'
+
+  steps:
+  # To manually select a Xamarin SDK version on the Hosted macOS agent, enable this script with the SDK version you want to target
+  # https://go.microsoft.com/fwlink/?linkid=871629
+  - script: sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh 5_4_1 
+    displayName: 'Select Xamarin SDK version'
+    enabled: false
+
+  - task: NuGetToolInstaller@0
+
+  - task: NuGetCommand@2
+    inputs:
+        restoreSolution: src/HelloXamarinWorld.sln
+
+  - task: XamariniOS@2
+    inputs:
+      solutionFile: src/HelloXamarinWorld.sln
+      configuration: 'Release'
+      buildForSimulator: true
+      packageApp: false
+
+ job: UWP
+  pool:
+    vmImage: 'VS2017-Win2016'
+
+  variables:
+    buildConfiguration: 'Release'
+    outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
+
+  steps:
+    - task: NuGetToolInstaller@0
+    displayName: 'Use NuGet 4.4.1'
+    inputs:    versionSpec: 4.4.1
+    
+    - task: NuGetCommand@2
+    inputs:
+        restoreSolution: src/HelloXamarinWorld.sln
+        
+    - task: VSBuild@1
+     inputs:
+        solution: src/HelloXamarinWorld/HelloXamarinWorld.UWP/HelloXamarinWorld.UWP.csproj
+        msbuildArgs: '/p:AppxBundlePlatforms="$(BuildPlatform)" /p:AppxPackageDir="$(Build.ArtifactStagingDirectory)\AppxPackages\\" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload'
+        platform: x64
+        configuration: '$(BuildConfiguration)'
+        
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish artifact: drop'
+      inputs: PathtoPublish: '$(Build.ArtifactStagingDirectory)\AppxPackages'
+      condition: succeededOrFailed()
+      
+    - task: DownloadSecureFile@1
+      displayName: 'Download secure file'
+      inputs: ecureFile: '954e8e48-650b-4db6-809c-169feb638179'
+      
+      
+  
+- job: Android
+  pool:
+    vmImage: 'VS2017-Win2016'
+
+  variables:
+    buildConfiguration: 'Release'
+    outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
+
+    steps:
+    - task: NuGetToolInstaller@0
+      inputs: versionSpec: 4.4.1
+
+    - task: NuGetCommand@2
+      inputs:
+        restoreSolution: '$(Parameters.restorePkgSolution)'
+
+    - task: XamarinAndroid@1
+      inputs:
+        projectFile: src/HelloXamarinWorld/HelloXamarinWorld.Android/HelloXamarinWorld.Android.csproj
+        outputDirectory: '$(build.binariesdirectory)/$(BuildConfiguration)'
+        configuration: '$(BuildConfiguration)'
+
+    - task: AndroidSigning@3
+      inputs:
+        apkFiles: '$(Parameters.appFiles)'
+        apksign: false
+        zipalign: false
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(build.binariesdirectory)/$(BuildConfiguration)'
+      condition: succeededOrFailed()
+
