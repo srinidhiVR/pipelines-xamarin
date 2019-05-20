@@ -80,7 +80,7 @@ jobs:
   - task: VSBuild@1
     inputs:
       solution: 'src/HelloXamarinWorld/HelloXamarinWorld.UWP/HelloXamarinWorld.UWP.csproj'
-      msbuildArgs: 'src/HelloXamarinWorld/HelloXamarinWorld.UWP/HelloXamarinWorld.UWP.csproj'
+      msbuildArgs: '/p:AppxBundlePlatforms="$(BuildPlatform)" /p:AppxPackageDir="$(Build.ArtifactStagingDirectory)\AppxPackages\\" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload'
       platform: 'x64'
       configuration: '$(BuildConfiguration)'
 
