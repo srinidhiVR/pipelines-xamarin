@@ -22,7 +22,7 @@ jobs:
 
   - task: XamarinAndroid@1
     inputs:
-      projectFile: 'src/*droid*.csproj'
+      ProjectFile: 'src/*.sln'
       outputDirectory: '$(outputDirectory)'
       configuration: '$(buildConfiguration)'
 
