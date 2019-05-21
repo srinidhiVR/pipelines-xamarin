@@ -1,0 +1,38 @@
+jobs:
+    - job: UWP
+      pool:
+        name: Hosted VS2017
+        demands:
+            - msbuild
+            - visualstudio
+      steps:
+        - task: NuGetToolInstaller@0
+          displayName: 'Use NuGet 4.4.1'
+          inputs:
+           versionSpec: 4.4.1
+
+        - task: NuGetCommand@2
+          displayName: 'NuGet restore HelloXamarinWorld.sln'
+          inputs:
+           restoreSolution: src/HelloXamarinWorld.sln
+
+        - task: VSBuild@1
+          displayName: 'Build HelloXamarinWorld.UWP.csproj'
+          inputs:
+           solution: src/HelloXamarinWorld/HelloXamarinWorld.UWP/HelloXamarinWorld.UWP.csproj
+           msbuildArgs: '/p:AppxBundlePlatforms="$(BuildPlatform)" /p:AppxPackageDir="$(Build.ArtifactStagingDirectory)\AppxPackages\\" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload'
+           platform: x64
+           configuration: '$(BuildConfiguration)'
+
+        - task: PublishBuildArtifacts@1
+          displayName: 'Publish artifact: drop'
+          inputs:
+           PathtoPublish: '$(Build.ArtifactStagingDirectory)\AppxPackages'
+           condition: succeededOrFailed()
+
+        - task: DownloadSecureFile@1
+          displayName: 'Download secure file'
+          inputs:
+           secureFile: '954e8e48-650b-4db6-809c-169feb638179'
+
+  
