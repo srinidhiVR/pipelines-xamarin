@@ -30,7 +30,7 @@ jobs:
 
 - job: Android_new
   pool:
-    vmImage: 'VS2017-Win2016'
+    name: 'Hosted VS2017'
 
   variables:
     buildConfiguration: 'Release'
@@ -63,7 +63,7 @@ jobs:
 
 - job: UWP
   pool:
-    vmImage: 'VS2017-Win2016'
+    name: 'Hosted VS2017'
 
   variables:
     buildConfiguration: 'Release'
