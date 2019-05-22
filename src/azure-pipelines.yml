@@ -53,7 +53,7 @@ jobs:
   - task: AndroidSigning@3
     inputs:
       apkFiles: '''$(outputDirectory)/*.apk'''
-      apksignerKeystoreFile: 'my-buildPipeline-key.keystor'
+      apksignerKeystoreFile: 'my-buildPipeline-key.keystore'
       apksignerKeystoreAlias: 'buildPipeline'
       apksignerKeyPassword: 'test123'
       zipalign: false
