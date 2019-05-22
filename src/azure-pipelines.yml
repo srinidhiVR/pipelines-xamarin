@@ -50,12 +50,13 @@ jobs:
       projectFile: src/HelloXamarinWorld/HelloXamarinWorld.Android/HelloXamarinWorld.Android.csproj
       outputDirectory: '$(build.binariesdirectory)/$(BuildConfiguration)'
       configuration: '$(BuildConfiguration)'
-
   - task: AndroidSigning@3
     inputs:
-     apkFiles: '$(outputDirectory)/*.apk'
-     apksign: false
-     zipalign: false
+      apkFiles: '''$(outputDirectory)/*.apk'''
+      apksignerKeystoreFile: 'my-buildPipeline-key.keystor'
+      apksignerKeystoreAlias: 'buildPipeline'
+      apksignerKeyPassword: 'test123'
+      zipalign: false
 
   - task: PublishBuildArtifacts@1
     inputs:
